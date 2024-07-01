@@ -5,7 +5,7 @@ Created on Wed Sep 19 14:48:10 2018
 @author: s.primakov
 """
 import sys
-import lung_extraction_funcs_13_09 as le
+import Automatic_segmentation_script.lung_extraction_funcs_13_09 as le
 import os,re,random,time,sys,scipy
 import SimpleITK as sitk
 import keras
