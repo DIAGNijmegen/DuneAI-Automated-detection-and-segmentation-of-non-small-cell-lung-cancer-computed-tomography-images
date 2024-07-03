@@ -37,11 +37,8 @@ if __name__ == '__main__':
 
     # If you have an available GPU and tensorflow-gpu >=1.15.0, CUDA >= 10.0.130, CuDNN installed you can try setting gpu=True
     if device == 'cuda':
-        print("GPU available")
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # Choose GPU device ID
-        # Check availableGPUs
-        print(K.tensorflow_backend._get_available_gpus())
 
     # Run inference
     run_inference(input_folder=input, output_folder=output, model_folder=model)
