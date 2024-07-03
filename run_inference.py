@@ -1,5 +1,7 @@
 from Automatic_segmentation_script.TheDuneAI import (ContourPilot as cp)
 import argparse
+import os
+import keras.backend as K
 
 
 def run_inference(input_folder: str, output_folder: str, model_folder: str):
@@ -24,10 +26,22 @@ if __name__ == '__main__':
     parser.add_argument("--output", type=str, help="Path to the output folder containing inference results.")
     parser.add_argument("--model", type=str, help="Path to the folder containing the model weights to be used for "
                                                   "inference.")
+    parser.add_argument("--device", type=str, default='cpu', help="Device can be 'cpu', 'cuda'")
+
 
     option = parser.parse_args()
     input = option.input
     output = option.output
     model = option.model
+    device = option.device
+
+    # If you have an available GPU and tensorflow-gpu >=1.15.0, CUDA >= 10.0.130, CuDNN installed you can try setting gpu=True
+    if device == 'cuda':
+        print("GPU available")
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # Choose GPU device ID
+        # Check availableGPUs
+        print(K.tensorflow_backend._get_available_gpus())
+
     # Run inference
     run_inference(input_folder=input, output_folder=output, model_folder=model)
